@@ -2,6 +2,7 @@ package org.telegram.ui.Components;
 
 import android.content.SharedPreferences;
 
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.Utilities;
 
@@ -40,6 +41,7 @@ public class HintsController {
         }
 
         public boolean show() {
+            if (!ForkFeatures.nagsEnabled()) return false;
             final int showsCount = MessagesController.getGlobalMainSettings().getInt(name, 0);
             if (showsCount < showsLimit) {
                 if (probability >= 1) {
