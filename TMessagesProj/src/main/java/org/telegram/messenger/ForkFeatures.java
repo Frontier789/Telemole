@@ -9,4 +9,8 @@ public class ForkFeatures {
     public static boolean aiEnabled() {
         return false;
     }
+
+    public static boolean premiumPromosEnabled() {
+        return false;
+    }
 }

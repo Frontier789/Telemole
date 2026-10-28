@@ -741,10 +741,10 @@ public class MessagesController extends BaseController implements NotificationCe
         return !starsLocked;
     }
     public boolean premiumFeaturesBlocked() {
-        return premiumLocked && !getUserConfig().isPremium();
+        return (premiumLocked || !ForkFeatures.premiumPromosEnabled()) && !getUserConfig().isPremium();
     }
     public boolean premiumPurchaseBlocked() {
-        return premiumLocked;
+        return premiumLocked || !ForkFeatures.premiumPromosEnabled();
     }
 
     public List<String> directPaymentsCurrency = new ArrayList<>();
