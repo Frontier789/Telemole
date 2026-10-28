@@ -29,4 +29,24 @@ public class ForkFeatures {
     public static boolean recommendationsEnabled() {
         return false;
     }
+
+    public static boolean giftsEnabled() {
+        return false;
+    }
+
+    public static boolean starsEnabled() {
+        return false;
+    }
+
+    public static boolean voiceToTextEnabled() {
+        return false;
+    }
+
+    public static boolean chatAutomationEnabled() {
+        return false;
+    }
+
+    public static boolean boostBadgesEnabled() {
+        return false;
+    }
 }

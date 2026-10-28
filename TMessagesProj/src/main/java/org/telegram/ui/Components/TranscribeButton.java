@@ -32,6 +32,7 @@ import org.telegram.messenger.BuildVars;
 import org.telegram.messenger.ChatObject;
 import org.telegram.messenger.DialogObject;
 import org.telegram.messenger.FileLog;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.MessageObject;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.MessagesStorage;
@@ -667,6 +668,7 @@ public class TranscribeButton {
     }
 
     private static void transcribePressed(MessageObject messageObject, boolean open, ChatMessageCell.ChatMessageCellDelegate delegate) {
+        if (!ForkFeatures.voiceToTextEnabled()) return;
         if (messageObject == null || messageObject.messageOwner == null || !messageObject.isSent()) {
             return;
         }
