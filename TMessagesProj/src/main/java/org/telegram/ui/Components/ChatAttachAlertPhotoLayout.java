@@ -80,6 +80,7 @@ import org.telegram.messenger.BuildVars;
 import org.telegram.messenger.ChatObject;
 import org.telegram.messenger.FileLoader;
 import org.telegram.messenger.FileLog;
+import org.telegram.messenger.ForkPermissions;
 import org.telegram.messenger.ImageReceiver;
 import org.telegram.messenger.LiteMode;
 import org.telegram.messenger.LocaleController;
@@ -4069,6 +4070,9 @@ public class ChatAttachAlertPhotoLayout extends ChatAttachAlert.AttachAlertLayou
     @Override
     public void onOpenAnimationEnd() {
         checkCamera(parentAlert != null && parentAlert.baseFragment instanceof ChatActivity);
+        if (parentAlert != null && parentAlert.baseFragment instanceof ChatActivity && !noCameraPermissions && isNoGalleryPermissions() && ForkPermissions.shouldAskGalleryNow()) {
+            requestGalleryPermission();
+        }
     }
 
     @Override
