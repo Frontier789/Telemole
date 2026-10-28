@@ -91,8 +91,13 @@ Everything else can break. This fork only needs the **`TMessagesProj_AppStandalo
 
 ## Project facts
 
-- **Decisions already made:** keep the official logo and the existing `APP_ID` / `APP_HASH` and other keys
-  (`BuildVars.java`, `google-services.json`) as they are. Do not change them or re-ask.
+- **Decisions already made:** keep the official logo and the other keys (`google-services.json`, `BuildVars.java`
+  besides the app id) as they are. Do not change them or re-ask.
+- **App id:** the official `APP_ID = 4` is refused by the server for this build (`API_ID_PUBLISHED_FLOOD`, login does
+  nothing). The user's own id from my.telegram.org goes into the gitignored `local.properties` as `TELEGRAM_API_ID` and
+  `TELEGRAM_API_HASH`; `TMessagesProj/build.gradle` turns them into `BuildConfig`. Without them the build falls back to
+  id 4 and login fails. Never commit the hash. Passkeys are off (`SUPPORTS_PASSKEYS`) because they need an official id.
+  If the login code never arrives, `SAFETYNET_KEY` (Firebase SMS) is the next suspect; ask before emptying it.
 - **What to remove or keep:** the user's decisions per feature are in `REMOVALS.md`. Read it before removing
   anything, update the status of a row when its commit lands, and do not re-ask what it already decides.
 - **Shipped build:** `./gradlew :TMessagesProj_AppStandalone:assembleAfatStandalone`.
