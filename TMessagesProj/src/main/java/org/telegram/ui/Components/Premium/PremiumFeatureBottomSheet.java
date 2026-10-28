@@ -35,6 +35,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.FileLog;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MediaDataController;
 import org.telegram.messenger.NotificationCenter;
@@ -583,6 +584,7 @@ public class PremiumFeatureBottomSheet extends BottomSheet implements Notificati
 
     @Override
     public void show() {
+        if (!ForkFeatures.premiumPromosEnabled()) return;
         super.show();
         NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.stopAllHeavyOperations, 16);
     }

@@ -59,6 +59,7 @@ import org.telegram.messenger.DocumentObject;
 import org.telegram.messenger.Emoji;
 import org.telegram.messenger.FileLoader;
 import org.telegram.messenger.FileLog;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.ImageLocation;
 import org.telegram.messenger.ImageReceiver;
 import org.telegram.messenger.LocaleController;
@@ -713,7 +714,7 @@ public class ContentPreviewViewer {
             } else if (currentContentType == CONTENT_TYPE_STICKER) {
                 if (MessageObject.isPremiumSticker(currentDocument) && !AccountInstance.getInstance(currentAccount).getUserConfig().isPremium()) {
                     showUnlockPremiumView();
-                    menuVisible = true;
+                    menuVisible = ForkFeatures.premiumPromosEnabled();
                     containerView.invalidate();
                     try {
                         containerView.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
@@ -1231,6 +1232,7 @@ public class ContentPreviewViewer {
     }
 
     private void showUnlockPremiumView() {
+        if (!ForkFeatures.premiumPromosEnabled()) return;
         if (unlockPremiumView == null) {
             unlockPremiumView = new UnlockPremiumView(containerView.getContext(), UnlockPremiumView.TYPE_STICKERS, resourcesProvider);
             containerView.addView(unlockPremiumView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
