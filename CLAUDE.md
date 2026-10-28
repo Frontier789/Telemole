@@ -93,6 +93,8 @@ Everything else can break. This fork only needs the **`TMessagesProj_AppStandalo
 
 - **Decisions already made:** keep the official logo and the existing `APP_ID` / `APP_HASH` and other keys
   (`BuildVars.java`, `google-services.json`) as they are. Do not change them or re-ask.
+- **What to remove or keep:** the user's decisions per feature are in `REMOVALS.md`. Read it before removing
+  anything, update the status of a row when its commit lands, and do not re-ask what it already decides.
 - **Shipped build:** `./gradlew :TMessagesProj_AppStandalone:assembleAfatStandalone`.
   Application id `org.telegram.messenger.web` (installs next to the Play Store app). The APK is named `app.apk`
   under that module's `build/outputs/apk/`. Install with `adb install -r app.apk`.
