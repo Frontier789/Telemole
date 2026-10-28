@@ -29357,10 +29357,10 @@ public class ChatActivity extends BaseFragment implements
         } else {
             show = preferences.getInt("dialog_bar_vis3" + did, 0) == 2 || DEBUG_TOP_PANELS;
         }
-        boolean showShare = preferences.getBoolean("dialog_bar_share" + did, false) || DEBUG_TOP_PANELS;
+        boolean showShare = ForkFeatures.nagsEnabled() && (preferences.getBoolean("dialog_bar_share" + did, false) || DEBUG_TOP_PANELS);
         boolean showReport = preferences.getBoolean("dialog_bar_report" + did, false) || DEBUG_TOP_PANELS;
         boolean showBlock = preferences.getBoolean("dialog_bar_block" + did, false) || DEBUG_TOP_PANELS;
-        boolean showAdd = preferences.getBoolean("dialog_bar_add" + did, false) || DEBUG_TOP_PANELS;
+        boolean showAdd = ForkFeatures.nagsEnabled() && (preferences.getBoolean("dialog_bar_add" + did, false) || DEBUG_TOP_PANELS);
         boolean showArchive = preferences.getBoolean("dialog_bar_archived" + dialog_id, false) || DEBUG_TOP_PANELS;
         boolean showGeo = preferences.getBoolean("dialog_bar_location" + did, false);
         String chatWithAdmin = preferences.getString("dialog_bar_chat_with_admin_title" + did, null);
