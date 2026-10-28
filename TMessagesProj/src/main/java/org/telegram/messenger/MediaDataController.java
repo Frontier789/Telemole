@@ -649,6 +649,7 @@ public class MediaDataController extends BaseController {
     }
 
     public void loadPremiumPromo(boolean cache) {
+        if (!ForkFeatures.premiumPromosEnabled()) return;
         isLoadingPremiumPromo = true;
         if (cache) {
             getMessagesStorage().getStorageQueue().postRunnable(() -> {
@@ -8874,7 +8875,7 @@ public class MediaDataController extends BaseController {
         checkReactions();
         checkMenuBots(true);
         checkPremiumPromo();
-        checkPremiumGiftStickers();
+        if (ForkFeatures.premiumPromosEnabled()) checkPremiumGiftStickers();
         checkTonGiftStickers();
         checkGenericAnimations();
         getMessagesController().getAvailableEffects();
