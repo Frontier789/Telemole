@@ -21,6 +21,7 @@ import android.view.animation.LinearInterpolator;
 import androidx.annotation.NonNull;
 
 import org.telegram.messenger.AndroidUtilities;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.Utilities;
@@ -257,7 +258,7 @@ public class ProfileGiftsView extends View implements NotificationCenter.Notific
     public int maxCount;
 
     public void update() {
-        if (!MessagesController.getInstance(currentAccount).enableGiftsInProfile) {
+        if (!ForkFeatures.giftsEnabled() || !MessagesController.getInstance(currentAccount).enableGiftsInProfile) {
             return;
         }
 

@@ -3694,7 +3694,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         int initialTab = -1;
         if (openCommonChats) {
             initialTab = SharedMediaLayout.TAB_COMMON_GROUPS;
-        } else if (openGifts && (userInfo != null && userInfo.stargifts_count > 0 || chatInfo != null && chatInfo.stargifts_count > 0)) {
+        } else if (openGifts && ForkFeatures.giftsEnabled() && (userInfo != null && userInfo.stargifts_count > 0 || chatInfo != null && chatInfo.stargifts_count > 0)) {
             initialTab = SharedMediaLayout.TAB_GIFTS;
             openedGifts = true;
         } else if (openSimilar) {
@@ -10635,7 +10635,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         if (!hasMedia && userInfo != null && userInfo.bot_info != null) {
             hasMedia = userInfo.bot_info.has_preview_medias;
         }
-        if (!hasMedia && (userInfo != null && userInfo.stargifts_count > 0 || chatInfo != null && chatInfo.stargifts_count > 0)) {
+        if (!hasMedia && ForkFeatures.giftsEnabled() && (userInfo != null && userInfo.stargifts_count > 0 || chatInfo != null && chatInfo.stargifts_count > 0)) {
             hasMedia = true;
         }
         if (!hasMedia && chatInfo != null) {
@@ -10706,8 +10706,8 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 if (getMessagesController().starsPurchaseAvailable()) {
                     starsRow = rowCount++;
                 }
-                StarsController.getInstance(currentAccount, true).getBalance();
-                if (ApplicationLoader.isBetaBuild() || ApplicationLoader.isStandaloneBuild() || ApplicationLoader.isHuaweiStoreBuild() || (StarsController.getInstance(currentAccount, true).balanceAvailable() && (StarsController.getInstance(currentAccount, true).hasTransactions() || StarsController.getInstance(currentAccount, true).getBalance().positive()))) {
+                if (ForkFeatures.starsEnabled()) StarsController.getInstance(currentAccount, true).getBalance();
+                if (ForkFeatures.starsEnabled() && (ApplicationLoader.isBetaBuild() || ApplicationLoader.isStandaloneBuild() || ApplicationLoader.isHuaweiStoreBuild() || (StarsController.getInstance(currentAccount, true).balanceAvailable() && (StarsController.getInstance(currentAccount, true).hasTransactions() || StarsController.getInstance(currentAccount, true).getBalance().positive())))) {
                     tonRow = rowCount++;
                 }
                 if (!getMessagesController().premiumFeaturesBlocked()) {
