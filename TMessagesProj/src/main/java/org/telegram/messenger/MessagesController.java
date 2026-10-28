@@ -10886,6 +10886,7 @@ public class MessagesController extends BaseController implements NotificationCe
                 noDialog = true;
             } else if (response instanceof TLRPC.TL_help_promoData) {
                 TLRPC.TL_help_promoData res = (TLRPC.TL_help_promoData) response;
+                ForkPromoData.keepOnlyAccountSecurity(res);
 
                 long did;
                 if (res.peer == null) {
@@ -21667,6 +21668,7 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     public SponsoredMessagesInfo getSponsoredMessages(long dialogId) {
+        if (!ForkFeatures.adsEnabled()) return null;
         SponsoredMessagesInfo info = sponsoredMessages.get(dialogId);
         if (info != null && (info.loading || Math.abs(SystemClock.elapsedRealtime() - info.loadTime) <= 5 * 60 * 1000)) {
             return info;
@@ -23823,6 +23825,7 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     public ChannelRecommendations getChannelRecommendations(long dialogId) {
+        if (!ForkFeatures.recommendationsEnabled()) return null;
         if (cachedChannelRecommendations == null) {
             cachedChannelRecommendations = new HashMap<>();
         }

@@ -17,4 +17,16 @@ public class ForkFeatures {
     public static boolean storiesEnabled() {
         return false;
     }
+
+    public static boolean adsEnabled() {
+        return false;
+    }
+
+    public static boolean nagsEnabled() {
+        return false;
+    }
+
+    public static boolean recommendationsEnabled() {
+        return false;
+    }
 }
