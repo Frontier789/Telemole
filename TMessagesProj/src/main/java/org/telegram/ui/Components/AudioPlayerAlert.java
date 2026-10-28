@@ -79,6 +79,7 @@ import org.telegram.messenger.DownloadController;
 import org.telegram.messenger.FileLoader;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.FileRefController;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.ImageLoader;
 import org.telegram.messenger.ImageLocation;
 import org.telegram.messenger.ImageReceiver;
@@ -1605,7 +1606,7 @@ public class AudioPlayerAlert extends BottomSheet implements NotificationCenter.
                 hintValue = -10;
             }
             MessagesController.getGlobalNotificationsSettings().edit().putInt("speedhint", hintValue).apply();
-            if (hintValue >= 0) {
+            if (ForkFeatures.nagsEnabled() && hintValue >= 0) {
                 showSpeedHint();
             }
         }

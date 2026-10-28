@@ -2071,7 +2071,7 @@ public class ChatActivity extends BaseFragment implements
                     }
                 }
 
-                if (showReplyHint) {
+                if (ForkFeatures.nagsEnabled() && showReplyHint) {
                     Bulletin bulletin = BulletinFactory.of(ChatActivity.this)
                         .createSimpleBulletin(
                             R.raw.hint_swipe_reply,
@@ -15248,7 +15248,7 @@ public class ChatActivity extends BaseFragment implements
                 replyCloseImageView.setContentDescription(LocaleController.getString(R.string.AccDescrCancelReply));
 
                 replyObjectHintTextView.setText(LocaleController.getString(R.string.TapForReplyOptions));
-                if (!SharedConfig.replyingOptionsHintShown) {
+                if (ForkFeatures.nagsEnabled() && !SharedConfig.replyingOptionsHintShown) {
                     showHint = true;
                 }
 
@@ -15494,7 +15494,7 @@ public class ChatActivity extends BaseFragment implements
                     }
                 }
                 replyObjectHintTextView.setText(LocaleController.getString(R.string.TapForForwardingOptions));
-                if (!SharedConfig.forwardingOptionsHintShown) {
+                if (ForkFeatures.nagsEnabled() && !SharedConfig.forwardingOptionsHintShown) {
                     showHint = true;
                 }
             } else if (webPage != null) {
