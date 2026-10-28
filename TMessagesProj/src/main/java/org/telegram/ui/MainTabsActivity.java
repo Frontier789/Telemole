@@ -43,6 +43,7 @@ import org.telegram.messenger.ContactsController;
 import org.telegram.messenger.DialogObject;
 import org.telegram.messenger.Emoji;
 import org.telegram.messenger.FileLoader;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.LiteMode;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MessageObject;
@@ -280,7 +281,7 @@ public class MainTabsActivity extends ViewPagerActivity implements NotificationC
     }
 
     private void checkContactsTabBadge() {
-        if (tabsView != null && tabs[INDEX_CONTACTS] != null) {
+        if (ForkFeatures.nagsEnabled() && tabsView != null && tabs[INDEX_CONTACTS] != null) {
             final boolean hasPermission = Build.VERSION.SDK_INT >= 23 && ContactsController.hasContactsPermission();
             if (hasPermission) {
                 MessagesController.getGlobalNotificationsSettings().edit().putBoolean("askAboutContacts2", true).apply();

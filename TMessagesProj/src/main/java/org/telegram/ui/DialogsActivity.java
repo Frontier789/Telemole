@@ -4844,11 +4844,11 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
             dialogsHintCell = new DialogsHintCell(context);
             dialogsHintCell.setBackground(Theme.getSelectorDrawable(false));
             updateDialogsHint();
-            CacheControlActivity.calculateTotalSize(size -> {
+            if (ForkFeatures.nagsEnabled()) CacheControlActivity.calculateTotalSize(size -> {
                 cacheSize = size;
                 updateDialogsHint();
             });
-            CacheControlActivity.getDeviceTotalSize((totalSize, totalFreeSize) -> {
+            if (ForkFeatures.nagsEnabled()) CacheControlActivity.getDeviceTotalSize((totalSize, totalFreeSize) -> {
                 deviceSize = totalSize;
                 updateDialogsHint();
             });
@@ -5761,7 +5761,7 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
     }
 
     public boolean isStarsSubscriptionHintVisible() {
-        if (folderId != 0 || communityId != 0) {
+        if (!ForkFeatures.nagsEnabled() || folderId != 0 || communityId != 0) {
             return false;
         }
 
@@ -5830,7 +5830,7 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
     }
 
     private boolean isCacheHintVisible() {
-        if (cacheSize == null || deviceSize == null) {
+        if (!ForkFeatures.nagsEnabled() || cacheSize == null || deviceSize == null) {
             return false;
         }
         if ((cacheSize / (float) deviceSize) < 0.30F) {
@@ -6368,7 +6368,7 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
             return;
         }
 
-        final boolean isVisible = !isInPreviewMode()
+        final boolean isVisible = ForkFeatures.nagsEnabled() && !isInPreviewMode()
             && folderId == 0 && communityId == 0 && initialDialogsType == DIALOGS_TYPE_DEFAULT
             && getGiftAuctionsController().hasActiveAuctions()
             && (rightSlidingDialogContainer == null || !rightSlidingDialogContainer.hasFragment())

@@ -114,6 +114,7 @@ import org.telegram.messenger.FileLoader;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.FingerprintController;
 import org.telegram.messenger.FlagSecureReason;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.GenericProvider;
 import org.telegram.messenger.GiftAuctionController;
 import org.telegram.messenger.LiteMode;
@@ -6072,7 +6073,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
 
     private boolean firstAppUpdateCheck = true;
     public void checkAppUpdate(boolean force, Browser.Progress progress) {
-        if (!ApplicationLoader.isStandaloneBuild() && !ApplicationLoader.isBetaBuild()) {
+        if (!ForkFeatures.nagsEnabled() || !ApplicationLoader.isStandaloneBuild() && !ApplicationLoader.isBetaBuild()) {
             return;
         }
         if (!force && !BuildVars.CHECK_UPDATES) {
