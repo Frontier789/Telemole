@@ -32,6 +32,7 @@ import org.telegram.messenger.BotWebViewVibrationEffect;
 import org.telegram.messenger.BuildVars;
 import org.telegram.messenger.ChatObject;
 import org.telegram.messenger.ContactsController;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.NotificationCenter;
@@ -101,7 +102,7 @@ public class UserInfoActivity extends UniversalFragment implements NotificationC
         getNotificationCenter().addObserver(this, NotificationCenter.updateInterfaces);
         getNotificationCenter().addObserver(this, NotificationCenter.updatedChatbot);
         getContactsController().loadPrivacySettings();
-        BusinessChatbotController.getInstance(currentAccount).load(null);
+        if (ForkFeatures.chatAutomationEnabled()) BusinessChatbotController.getInstance(currentAccount).load(null);
         return super.onFragmentCreate();
     }
 
@@ -405,7 +406,7 @@ public class UserInfoActivity extends UniversalFragment implements NotificationC
         if (hadLocation) {
             items.add(SettingsActivity.SettingCell.Factory.of(BUTTON_LOCATION, IconBackgroundColors.RED.top, IconBackgroundColors.RED.bottom, R.drawable.filled_location, getString(R.string.EditProfileLocation)));
         }
-        if (bots != null && !bots.isEmpty()) {
+        if (ForkFeatures.chatAutomationEnabled() && bots != null && !bots.isEmpty()) {
             final StringBuilder value = new StringBuilder();
             for (final TL_account.TL_connectedBot bot : bots) {
                 final TLRPC.User botUser = MessagesController.getInstance(currentAccount).getUser(bot.bot_id);
@@ -415,10 +416,10 @@ public class UserInfoActivity extends UniversalFragment implements NotificationC
                 }
             }
             items.add(SettingsActivity.SettingCell.Factory.of(BUTTON_AI, IconBackgroundColors.PURPLE.top, IconBackgroundColors.PURPLE.bottom, R.drawable.premium_ai_editor, getString(R.string.EditProfileChatAutomation), value));
-        } else {
+        } else if (ForkFeatures.chatAutomationEnabled()) {
             items.add(SettingsActivity.SettingCell.Factory.of(BUTTON_AI, IconBackgroundColors.PURPLE.top, IconBackgroundColors.PURPLE.bottom, R.drawable.premium_ai_editor, applyNewSpan(getString(R.string.EditProfileChatAutomation))));
         }
-        items.add(UItem.asShadow(-3, getString(R.string.EditProfileChatAutomationInfo)));
+        items.add(UItem.asShadow(-3, ForkFeatures.chatAutomationEnabled() ? getString(R.string.EditProfileChatAutomationInfo) : null));
         final boolean hasAddAccount = UserConfig.getActivatedAccountsCount() < UserConfig.MAX_ACCOUNT_COUNT;
         if (hasAddAccount) {
             addAccountRow = items.size();
