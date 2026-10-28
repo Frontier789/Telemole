@@ -36,6 +36,7 @@ import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ChatObject;
 import org.telegram.messenger.DialogObject;
 import org.telegram.messenger.FileLoader;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.ImageLoader;
 import org.telegram.messenger.ImageLocation;
 import org.telegram.messenger.ImageReceiver;
@@ -118,6 +119,7 @@ public class StoriesUtilities {
     };
 
     public static void drawAvatarWithStory(long dialogId, Canvas canvas, ImageReceiver avatarImage, boolean hasStories, AvatarStoryParams params) {
+        hasStories &= ForkFeatures.storiesEnabled();
         StoriesController storiesController = MessagesController.getInstance(UserConfig.selectedAccount).getStoriesController();
         boolean animated = params.animate;
         if (params.dialogId != dialogId) {
@@ -555,7 +557,7 @@ public class StoriesUtilities {
     }
 
     public static int getPredictiveUnreadState(StoriesController storiesController, long dialogId) {
-        if (dialogId == 0) {
+        if (!ForkFeatures.storiesEnabled() || dialogId == 0) {
             return STATE_EMPTY;
         }
         if (dialogId > 0) {
@@ -1290,6 +1292,7 @@ public class StoriesUtilities {
         }
 
         public boolean checkOnTouchEvent(MotionEvent event, View view) {
+            if (!ForkFeatures.storiesEnabled()) return false;
             child = view;
             StoriesController storiesController = MessagesController.getInstance(UserConfig.selectedAccount).getStoriesController();
             if (event.getAction() == MotionEvent.ACTION_DOWN && originalAvatarRect.contains(event.getX(), event.getY())) {

@@ -253,7 +253,7 @@ public class LinkManager {
             return true;
         }
 
-        if ("post".equalsIgnoreCase(first)) {
+        if (ForkFeatures.storiesEnabled() && "post".equalsIgnoreCase(first)) {
             int mode = StoryRecorder.MODE_PHOTO;
             if ("video".equalsIgnoreCase(second))
                 mode = StoryRecorder.MODE_VIDEO;

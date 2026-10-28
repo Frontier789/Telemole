@@ -146,6 +146,7 @@ import org.telegram.messenger.Emoji;
 import org.telegram.messenger.FileLoader;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.FlagSecureReason;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.ImageLoader;
 import org.telegram.messenger.ImageLocation;
 import org.telegram.messenger.ImageReceiver;
@@ -10629,7 +10630,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             }
         }
         if (!hasMedia && userInfo != null) {
-            hasMedia = userInfo.stories_pinned_available;
+            hasMedia = ForkFeatures.storiesEnabled() && userInfo.stories_pinned_available;
         }
         if (!hasMedia && userInfo != null && userInfo.bot_info != null) {
             hasMedia = userInfo.bot_info.has_preview_medias;
@@ -10638,7 +10639,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             hasMedia = true;
         }
         if (!hasMedia && chatInfo != null) {
-            hasMedia = chatInfo.stories_pinned_available;
+            hasMedia = ForkFeatures.storiesEnabled() && chatInfo.stories_pinned_available;
         }
         if (!hasMedia) {
             if (chatId != 0 && MessagesController.ChannelRecommendations.hasRecommendations(currentAccount, -chatId)) {
