@@ -17,6 +17,7 @@ import org.telegram.messenger.BirthdayController;
 import org.telegram.messenger.BuildVars;
 import org.telegram.messenger.ContactsController;
 import org.telegram.messenger.FileLog;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.LiteMode;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MediaDataController;
@@ -1428,7 +1429,7 @@ public class LinkManager {
     }
 
     private boolean handleAiStyle(String slug) {
-        if (TextUtils.isEmpty(slug)) return false;
+        if (!ForkFeatures.aiEnabled() || TextUtils.isEmpty(slug)) return false;
         final TL_aicompose.getTone req = new TL_aicompose.getTone();
         final TL_aicompose.inputAiComposeToneSlug input = new TL_aicompose.inputAiComposeToneSlug();
         input.slug = slug;

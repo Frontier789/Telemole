@@ -119,6 +119,7 @@ import org.telegram.messenger.FileLog;
 import org.telegram.messenger.FlagSecureReason;
 import org.telegram.messenger.ImageLoader;
 import org.telegram.messenger.ImageLocation;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.ImageReceiver;
 import org.telegram.messenger.LiteMode;
 import org.telegram.messenger.LocaleController;
@@ -7499,7 +7500,7 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
                         } else {
                             drawInstantViewType = 13;
                         }
-                    } else if ("telegram_aicomposetone".equals(webpageType)) {
+                    } else if (ForkFeatures.aiEnabled() && "telegram_aicomposetone".equals(webpageType)) {
                         drawInstantView = true;
                         drawInstantViewType = INSTANT_BUTTON_TYPE_AI_STYLE;
                         final TLRPC.TL_webPageAttributeAiComposeTone attr = find(webpage.attributes, TLRPC.TL_webPageAttributeAiComposeTone.class);
