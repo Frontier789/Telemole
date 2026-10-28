@@ -18907,7 +18907,7 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
                 }
             }
 
-            int boosts = currentMessageObject.messageOwner.from_boosts_applied;
+            int boosts = ForkFeatures.boostBadgesEnabled() ? currentMessageObject.messageOwner.from_boosts_applied : 0;
             if (boosts > 0) {
                 if (adminString == null) {
                     adminString = new SpannableStringBuilder();
