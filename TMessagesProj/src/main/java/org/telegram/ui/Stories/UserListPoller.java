@@ -4,6 +4,7 @@ import android.view.View;
 
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ChatObject;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.MessagesStorage;
 import org.telegram.messenger.NotificationCenter;
@@ -95,6 +96,7 @@ public class UserListPoller {
     };
 
     public void checkList(RecyclerListView recyclerListView) {
+        if (!ForkFeatures.storiesEnabled()) return;
         long currentTime = System.currentTimeMillis();
         dialogIds.clear();
         for (int i = 0; i < recyclerListView.getChildCount(); i++) {

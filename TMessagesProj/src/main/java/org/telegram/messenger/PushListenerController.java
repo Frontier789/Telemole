@@ -488,7 +488,7 @@ public class PushListenerController {
                                 if (custom.has("story_id")) {
                                     story_id = custom.getInt("story_id");
                                 }
-                                processNotification = story_id >= 0;
+                                processNotification = ForkFeatures.storiesEnabled() && story_id >= 0;
                             }
 
                             if (processNotification) {

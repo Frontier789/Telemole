@@ -13,4 +13,8 @@ public class ForkFeatures {
     public static boolean premiumPromosEnabled() {
         return false;
     }
+
+    public static boolean storiesEnabled() {
+        return false;
+    }
 }

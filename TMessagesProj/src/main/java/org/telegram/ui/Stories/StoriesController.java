@@ -25,6 +25,7 @@ import org.telegram.messenger.DownloadController;
 import org.telegram.messenger.FileLoader;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.FileRefController;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.ImageLocation;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MediaController;
@@ -186,6 +187,7 @@ public class StoriesController {
     }
 
     public void loadAllStories() {
+        if (!ForkFeatures.storiesEnabled()) return;
         if (!firstLoad) {
             loadStories();
             loadStoriesRead();
@@ -264,6 +266,7 @@ public class StoriesController {
     }
 
     public TL_stories.PeerStories getStoriesFromFullPeer(long dialogId) {
+        if (!ForkFeatures.storiesEnabled()) return null;
         if (dialogId > 0) {
             TLRPC.UserFull userFull = MessagesController.getInstance(currentAccount).getUserFull(dialogId);
             if (userFull != null && userFull.stories != null && !userFull.stories.checkedExpired) {
@@ -284,6 +287,7 @@ public class StoriesController {
     }
 
     public void loadStories() {
+        if (!ForkFeatures.storiesEnabled()) return;
         if (firstLoad) {
             loadingFromDatabase = true;
             storiesStorage.getAllStories(allStories -> {
@@ -305,6 +309,7 @@ public class StoriesController {
     }
 
     public void loadHiddenStories() {
+        if (!ForkFeatures.storiesEnabled()) return;
         if (hasMoreHidden) {
             loadFromServer(true);
         }
@@ -795,6 +800,7 @@ public class StoriesController {
     }
 
     public void processUpdate(TL_stories.TL_updateStory updateStory) {
+        if (!ForkFeatures.storiesEnabled()) return;
         //stage queue
         if (updateStory.story == null) {
             return;
@@ -1552,6 +1558,7 @@ public class StoriesController {
     }
 
     public void loadNextStories(boolean hidden) {
+        if (!ForkFeatures.storiesEnabled()) return;
         if (hidden ? hasMoreHidden : hasMore) {
             loadFromServer(hidden);
         }
@@ -1564,6 +1571,10 @@ public class StoriesController {
     LongSparseArray<TL_stories.StoryItem> resolvedStories = new LongSparseArray<>();
 
     public void resolveStoryAlbumLink(long peerId, int storyAlbumId, Utilities.Callback<TL_stories.TL_storyAlbum> consumer) {
+        if (!ForkFeatures.storiesEnabled()) {
+            consumer.run(null);
+            return;
+        }
         StoriesCollections collections = getStoryAlbumsList(peerId, false);
         if (collections != null) {
             StoryAlbum album = collections.findById(storyAlbumId);
@@ -1595,6 +1606,10 @@ public class StoriesController {
     }
 
     public void resolveLiveStoryLink(long peerId, Utilities.Callback<TL_stories.StoryItem> consumer) {
+        if (!ForkFeatures.storiesEnabled()) {
+            consumer.run(null);
+            return;
+        }
         TL_stories.PeerStories userStoriesLocal = getStories(peerId);
         if (userStoriesLocal != null) {
             for (int i = 0; i < userStoriesLocal.stories.size(); i++) {
@@ -1638,6 +1653,10 @@ public class StoriesController {
     }
 
     public void resolveStoryLink(long peerId, int storyId, Utilities.Callback<TL_stories.StoryItem> consumer) {
+        if (!ForkFeatures.storiesEnabled()) {
+            consumer.run(null);
+            return;
+        }
         TL_stories.PeerStories userStoriesLocal = getStories(peerId);
         if (userStoriesLocal != null) {
             for (int i = 0; i < userStoriesLocal.stories.size(); i++) {
