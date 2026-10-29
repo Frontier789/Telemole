@@ -5,6 +5,11 @@ obj/
 *.iml
 local.properties
 TMessagesProj_AppStandalone/src/standalone/google-services.json
+*.jks
+*.p12
+*.keystore
+*adminsdk*.json
+*service-account*.json
 TMessagesProj/.cxx/
 TMessagesProj/jniLibs/
 TMessagesProj/jniRes/

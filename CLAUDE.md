@@ -104,8 +104,12 @@ Everything else can break. This fork only needs the **`TMessagesProj_AppStandalo
   Application id `org.telegram.messenger.web` (installs next to the Play Store app). The APK is named `app.apk`
   under that module's `build/outputs/apk/`. Install with `adb install -r app.apk`.
 - **Signing:** installs only update in place if signed with the same key and the versionCode does not go down.
-  The repo's `TMessagesProj/config/release.keystore` is a public dummy; the user is expected to use their own
-  keystore. Never overwrite or lose it, and never commit one.
+  The shipped build is signed with the user's own key, read from the gitignored `local.properties`
+  (`TELEGRAM_KEYSTORE_FILE`, `TELEGRAM_KEY_ALIAS`, `TELEGRAM_KEYSTORE_PASSWORD`; the file lives outside the repo in
+  `~/.android-keys/`) by `TMessagesProj_AppStandalone/build.gradle`, with v3 signing on so a key rotation stays
+  possible. Without those keys the build falls back to the repo's public dummy `release.keystore` and warns: never
+  ship or install such a build. Never overwrite, lose or commit the key, and never ask for or print its password.
+  Installing a build signed with a different key needs an uninstall first, which wipes the app's local data.
 - **Toolchain:** JDK 17+ (21 is installed), Android platform 36, build-tools 36.0.0, NDK 27.2.12479018,
   CMake 3.22.1 (from the SDK). The Android SDK is not installed yet; ask first.
 - **Submodules are not initialized** in this checkout. Before the first build:
