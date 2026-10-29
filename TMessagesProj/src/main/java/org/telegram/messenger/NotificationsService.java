@@ -18,7 +18,6 @@ public class NotificationsService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        ForkKeepAlive.startForeground(this);
         ApplicationLoader.postInitApplication();
     }
 
