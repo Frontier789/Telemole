@@ -57,4 +57,8 @@ public class ForkFeatures {
     public static boolean attachBadgeOnMenuIconEnabled() {
         return false;
     }
+
+    public static boolean archiveRowEnabled() {
+        return false;
+    }
 }

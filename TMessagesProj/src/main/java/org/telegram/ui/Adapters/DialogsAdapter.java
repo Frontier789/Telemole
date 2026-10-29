@@ -38,6 +38,7 @@ import org.telegram.messenger.ChatObject;
 import org.telegram.messenger.ContactsController;
 import org.telegram.messenger.DialogObject;
 import org.telegram.messenger.FileLog;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.R;
@@ -1465,7 +1466,7 @@ public class DialogsAdapter extends RecyclerListView.SelectionAdapter implements
 
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
             int size = itemInternals.size();
-            boolean hasArchive = folderId == 0 && dialogsType == 0 && MessagesController.getInstance(currentAccount).dialogs_dict.get(DialogObject.makeFolderDialogId(1)) != null;
+            boolean hasArchive = ForkFeatures.archiveRowEnabled() && folderId == 0 && dialogsType == 0 && MessagesController.getInstance(currentAccount).dialogs_dict.get(DialogObject.makeFolderDialogId(1)) != null;
             View parent = (View) getParent();
             int height;
             int blurOffset = 0;

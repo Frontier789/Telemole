@@ -2557,6 +2557,9 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
                         parentPage.updateList(true);
                     } else {
                         int added = getMessagesController().addDialogToFolder(dialog.id, folderId == 0 ? 1 : 0, -1, 0);
+                        if (added == 2 && !ForkFeatures.archiveRowEnabled()) {
+                            added = 1;
+                        }
                         if (added != 2 || position != 0) {
                             parentPage.dialogsItemAnimator.prepareForRemove();
                             parentPage.updateList(true);
@@ -13775,6 +13778,11 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
             Bundle args = new Bundle();
             args.putLong("user_id", UserConfig.getInstance(currentAccount).getClientUserId());
             presentFragment(new ChatActivity(args));
+        });
+        io.add(R.drawable.msg_archive, getString(R.string.ArchivedChats), () -> {
+            Bundle args = new Bundle();
+            args.putInt("folderId", 1);
+            presentFragment(new DialogsActivity(args));
         });
         if (ApplicationLoader.applicationLoaderInstance != null) {
             ApplicationLoader.applicationLoaderInstance.addItemOptions(io);

@@ -9668,7 +9668,7 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     public boolean hasHiddenArchive() {
-        return SharedConfig.archiveHidden && dialogs_dict.get(DialogObject.makeFolderDialogId(1)) != null;
+        return ForkFeatures.archiveRowEnabled() && SharedConfig.archiveHidden && dialogs_dict.get(DialogObject.makeFolderDialogId(1)) != null;
     }
 
 
@@ -22618,6 +22618,9 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     private void addDialogToItsFolder(int index, TLRPC.Dialog dialog) {
+        if (dialog instanceof TLRPC.TL_dialogFolder && !ForkFeatures.archiveRowEnabled()) {
+            return;
+        }
         int folderId;
         if (dialog instanceof TLRPC.TL_dialogFolder) {
             folderId = 0;
