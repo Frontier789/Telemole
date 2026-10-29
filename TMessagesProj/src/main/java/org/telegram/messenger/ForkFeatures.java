@@ -49,4 +49,8 @@ public class ForkFeatures {
     public static boolean boostBadgesEnabled() {
         return false;
     }
+
+    public static boolean callIconInChatHeaderEnabled() {
+        return false;
+    }
 }
