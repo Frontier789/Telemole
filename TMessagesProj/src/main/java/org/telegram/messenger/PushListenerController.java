@@ -53,7 +53,7 @@ public class PushListenerController {
                 return;
             }
             boolean sendStat = false;
-            if (SharedConfig.pushStringGetTimeStart != 0 && SharedConfig.pushStringGetTimeEnd != 0 && (!SharedConfig.pushStatSent || !TextUtils.equals(SharedConfig.pushString, token))) {
+            if (ForkFeatures.telemetryEnabled() && SharedConfig.pushStringGetTimeStart != 0 && SharedConfig.pushStringGetTimeEnd != 0 && (!SharedConfig.pushStatSent || !TextUtils.equals(SharedConfig.pushString, token))) {
                 sendStat = true;
                 SharedConfig.pushStatSent = false;
             }

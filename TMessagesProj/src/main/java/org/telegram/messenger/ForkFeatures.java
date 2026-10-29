@@ -65,4 +65,8 @@ public class ForkFeatures {
     public static boolean composeButtonEnabled() {
         return false;
     }
+
+    public static boolean telemetryEnabled() {
+        return false;
+    }
 }
