@@ -1606,8 +1606,8 @@ public class MessagesController extends BaseController implements NotificationCe
         canRevokePmInbox = mainPreferences.getBoolean("canRevokePmInbox", canRevokePmInbox);
         preloadFeaturedStickers = mainPreferences.getBoolean("preloadFeaturedStickers", false);
         youtubePipType = mainPreferences.getString("youtubePipType", "disabled");
-        keepAliveService = mainPreferences.getBoolean("keepAliveService", false);
-        backgroundConnection = mainPreferences.getBoolean("backgroundConnection", false);
+        keepAliveService = mainPreferences.getBoolean("keepAliveService", ForkKeepAlive.enabledByDefault());
+        backgroundConnection = mainPreferences.getBoolean("backgroundConnection", ForkKeepAlive.enabledByDefault());
         promoDialogId = mainPreferences.getLong("proxy_dialog", 0);
         nextPromoInfoCheckTime = mainPreferences.getInt("nextPromoInfoCheckTime", 0);
         promoDialogType = mainPreferences.getInt("promo_dialog_type", 0);
@@ -2987,7 +2987,7 @@ public class MessagesController extends BaseController implements NotificationCe
                     break;
                 }
                 case "background_connection": {
-                    if (value.value instanceof TLRPC.TL_jsonBool) {
+                    if (ForkKeepAlive.serverMayDisableKeepAlive() && value.value instanceof TLRPC.TL_jsonBool) {
                         TLRPC.TL_jsonBool bool = (TLRPC.TL_jsonBool) value.value;
                         if (bool.value != backgroundConnection) {
                             backgroundConnection = bool.value;
@@ -2999,7 +2999,7 @@ public class MessagesController extends BaseController implements NotificationCe
                     break;
                 }
                 case "keep_alive_service": {
-                    if (value.value instanceof TLRPC.TL_jsonBool) {
+                    if (ForkKeepAlive.serverMayDisableKeepAlive() && value.value instanceof TLRPC.TL_jsonBool) {
                         TLRPC.TL_jsonBool bool = (TLRPC.TL_jsonBool) value.value;
                         if (bool.value != keepAliveService) {
                             keepAliveService = bool.value;
