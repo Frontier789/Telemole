@@ -61,4 +61,8 @@ public class ForkFeatures {
     public static boolean archiveRowEnabled() {
         return false;
     }
+
+    public static boolean composeButtonEnabled() {
+        return false;
+    }
 }

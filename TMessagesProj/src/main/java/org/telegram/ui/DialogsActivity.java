@@ -8853,7 +8853,7 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
         final boolean isVisible = !(onlySelect && initialDialogsType != 10 || folderId != 0 || communityId != 0 || inPreviewMode || (searching && !onlySelect) || floatingButtonHidden);
 
         if (floatingButton3 != null) {
-            floatingButton3.setButtonVisible(isVisible, animated);
+            floatingButton3.setButtonVisible(isVisible && (ForkFeatures.composeButtonEnabled() || initialDialogsType == DIALOGS_TYPE_WIDGET), animated);
         }
         if (floatingButtonStories != null) {
             floatingButtonStories.setButtonVisible(isVisible && ForkFeatures.storiesEnabled(), animated);
