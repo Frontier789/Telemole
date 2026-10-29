@@ -45,6 +45,7 @@ for 13.1.1 and drift). Paths are under `TMessagesProj/src/main/java/org/telegram
 | S | **Compose (new message) bubble** in the corner of the chat list. Widget-setup mode keeps it, it is the confirm button there | `DialogsActivity.updateFloatingButtonVisibility`: `ForkFeatures.composeButtonEnabled() \|\| initialDialogsType == DIALOGS_TYPE_WIDGET`. New chats start from the Contacts tab, search or *New Group* in the menu | **done** (8d2e41aeb) |
 | T | **Startup fetches for removed or discarded features**: premium sticker pack for non-Premium accounts, daily TON gift-sticker pack, 12-hourly birthdays check (gift hints only) | `MediaDataController.checkAllMedia` (`isPremium()` gate, `ForkFeatures.starsEnabled()` gate) and `BirthdayController.check` (`ForkFeatures.giftsEnabled()`) | **done** (2f86293e1) |
 | U | **Telemetry**: the push-token timing `help.saveAppLog` report, the only analytics-style request the app sends | `PushListenerController.sendRegistrationToServer`: `ForkFeatures.telemetryEnabled()` in the `sendStat` condition | **done** (5702ba48f) |
+| V2 | **Trending stickers and trending emoji packs**: hourly fetch, the Trending tab and red dot in the sticker panel and message box, the featured emoji section, the Trending Stickers row in Settings | `MediaDataController.loadFeaturedStickers` early return behind `ForkFeatures.trendingStickersEnabled()`; `StickersActivity` skips the Trending row | **done** (dacd21208) |
 
 ## Keep
 
