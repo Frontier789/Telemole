@@ -40,6 +40,7 @@ for 13.1.1 and drift). Paths are under `TMessagesProj/src/main/java/org/telegram
 | C | **Chat Automation** — the row on the *Edit Profile* screen, not in Settings | `UserInfoActivity` skip the `BUTTON_AI` if/else and change the following `UItem.asShadow(-3, ...)` to a plain shadow; optionally skip `BusinessChatbotController.load` on open (`account.getConnectedBots`). Keep the bot session management in `SessionsActivity` (the way to disconnect a bot). The Business page's "Chatbots" row is already hidden by `premiumLocked` | **done** (7646d9891) |
 | B | **Boost badges**: the lightning counter next to a member's name in group messages | `ChatMessageCell` `from_boosts_applied` read, force 0 (layout-neutral, no network) | **done** (48c2afff0) |
 | P | **Call button in the chat header** (pressed by accident): the Call entry already lives in the `⋮` menu, so the header icon is never created | `ChatActivity` icon creation block and the `showAudioCallAsIcon` assignment in the `userInfoDidLoad` handler, both prefixed with `ForkFeatures.callIconInChatHeaderEnabled()` | **done** (e2ac7f3a6) |
+| Q | **Paperclip badge on the `⋮` icon** in a chat once you start typing (the attach options move into that menu) | `ComposeDrawable.setIconVisible(visible, animated)`: `visible &= ForkFeatures.attachBadgeOnMenuIconEnabled()`. The menu swap itself is unchanged | **done** (adb94cc26) |
 
 ## Keep
 
