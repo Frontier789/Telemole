@@ -80,7 +80,7 @@ public class BirthdayController {
     private boolean loading;
 
     public void check() {
-        if (loading) return;
+        if (loading || !ForkFeatures.giftsEnabled()) return;
 
         final long now = System.currentTimeMillis();
         boolean shouldCheck = lastCheckDate == 0;

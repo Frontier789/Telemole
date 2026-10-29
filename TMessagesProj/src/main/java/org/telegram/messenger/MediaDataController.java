@@ -8869,14 +8869,14 @@ public class MediaDataController extends BaseController {
         }
         loadRecents(MediaDataController.TYPE_FAVE, false, true, false);
         loadRecents(MediaDataController.TYPE_GREETINGS, false, true, false);
-        loadRecents(MediaDataController.TYPE_PREMIUM_STICKERS, false, false, true);
+        if (getUserConfig().isPremium()) loadRecents(MediaDataController.TYPE_PREMIUM_STICKERS, false, false, true);
         checkFeaturedStickers();
         checkFeaturedEmoji();
         checkReactions();
         checkMenuBots(true);
         checkPremiumPromo();
         if (ForkFeatures.premiumPromosEnabled()) checkPremiumGiftStickers();
-        checkTonGiftStickers();
+        if (ForkFeatures.starsEnabled()) checkTonGiftStickers();
         checkGenericAnimations();
         getMessagesController().getAvailableEffects();
     }
