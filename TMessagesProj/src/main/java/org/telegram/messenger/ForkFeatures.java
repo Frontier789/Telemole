@@ -53,4 +53,8 @@ public class ForkFeatures {
     public static boolean callIconInChatHeaderEnabled() {
         return false;
     }
+
+    public static boolean attachBadgeOnMenuIconEnabled() {
+        return false;
+    }
 }

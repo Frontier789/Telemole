@@ -11,6 +11,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.ui.Components.AnimatedFloat;
 import org.telegram.ui.Components.CubicBezierInterpolator;
 
@@ -45,6 +46,7 @@ public class ComposeDrawable extends Drawable {
         setIconVisible(visible, true);
     }
     public void setIconVisible(boolean visible, boolean animated) {
+        visible &= ForkFeatures.attachBadgeOnMenuIconEnabled();
         if (this.iconVisible == visible) return;
         this.iconVisible = visible;
         if (!animated) {
