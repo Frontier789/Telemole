@@ -2270,7 +2270,7 @@ public class MediaDataController extends BaseController {
     }
 
     public void loadFeaturedStickers(boolean emoji, boolean cache) {
-        if (loadingFeaturedStickers[emoji ? 1 : 0]) {
+        if (!ForkFeatures.trendingStickersEnabled() || loadingFeaturedStickers[emoji ? 1 : 0]) {
             return;
         }
         loadingFeaturedStickers[emoji ? 1 : 0] = true;

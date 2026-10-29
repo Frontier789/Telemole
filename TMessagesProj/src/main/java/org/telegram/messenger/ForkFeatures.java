@@ -69,4 +69,8 @@ public class ForkFeatures {
     public static boolean telemetryEnabled() {
         return false;
     }
+
+    public static boolean trendingStickersEnabled() {
+        return false;
+    }
 }

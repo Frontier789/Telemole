@@ -45,6 +45,7 @@ import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.DocumentObject;
 import org.telegram.messenger.FileLog;
+import org.telegram.messenger.ForkFeatures;
 import org.telegram.messenger.ImageLocation;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MediaDataController;
@@ -356,7 +357,7 @@ public class StickersActivity extends BaseFragment implements NotificationCenter
 
         if (currentType == TYPE_IMAGE) {
             featuredRow = items.size();
-            items.add(UItem.asButton(ID_FEATURED, R.drawable.msg2_trending, getString(R.string.FeaturedStickers), featuredCount > 0 ? formatNumber(featuredCount, ',') : ""));
+            if (ForkFeatures.trendingStickersEnabled()) items.add(UItem.asButton(ID_FEATURED, R.drawable.msg2_trending, getString(R.string.FeaturedStickers), featuredCount > 0 ? formatNumber(featuredCount, ',') : ""));
             if (archivedCount > 0) {
                 archivedRow = items.size();
                 if (currentType == TYPE_IMAGE) {
