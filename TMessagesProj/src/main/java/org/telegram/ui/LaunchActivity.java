@@ -115,6 +115,7 @@ import org.telegram.messenger.FileLog;
 import org.telegram.messenger.FingerprintController;
 import org.telegram.messenger.FlagSecureReason;
 import org.telegram.messenger.ForkFeatures;
+import org.telegram.messenger.ForkLastChat;
 import org.telegram.messenger.GenericProvider;
 import org.telegram.messenger.GiftAuctionController;
 import org.telegram.messenger.LiteMode;
@@ -600,7 +601,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                         Bundle args = savedInstanceState.getBundle("args");
                         switch (fragmentName) {
                             case "chat":
-                                if (args != null) {
+                                if (args != null && ForkFeatures.restoreChatAfterKillEnabled()) {
                                     ChatActivity chat = new ChatActivity(args);
                                     if (actionBarLayout.addFragmentToStack(chat)) {
                                         chat.restoreSelfArgs(savedInstanceState);
@@ -6734,6 +6735,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        ForkLastChat.activityResultReturned();
         if (SharedConfig.passcodeHash.length() != 0 && SharedConfig.lastPauseTime != 0) {
             SharedConfig.lastPauseTime = 0;
             if (BuildVars.LOGS_ENABLED) {

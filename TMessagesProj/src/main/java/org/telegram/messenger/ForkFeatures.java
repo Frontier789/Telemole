@@ -77,4 +77,8 @@ public class ForkFeatures {
     public static boolean swipeBackFromChatEnabled() {
         return false;
     }
+
+    public static boolean restoreChatAfterKillEnabled() {
+        return false;
+    }
 }
