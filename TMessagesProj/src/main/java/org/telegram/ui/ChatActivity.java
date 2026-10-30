@@ -37112,7 +37112,7 @@ public class ChatActivity extends BaseFragment implements
         if (animatorSearchResultAsListVisibility.getValue()) {
             return false;
         }
-        return swipeBackEnabled && (forwardingPreviewView == null || !forwardingPreviewView.isShowing())
+        return ForkFeatures.swipeBackFromChatEnabled() && swipeBackEnabled && (forwardingPreviewView == null || !forwardingPreviewView.isShowing())
             && (quickShareSelectorOverlay == null || !quickShareSelectorOverlay.isActive());
     }
 

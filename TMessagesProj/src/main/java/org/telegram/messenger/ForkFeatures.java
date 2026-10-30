@@ -73,4 +73,8 @@ public class ForkFeatures {
     public static boolean trendingStickersEnabled() {
         return false;
     }
+
+    public static boolean swipeBackFromChatEnabled() {
+        return false;
+    }
 }
