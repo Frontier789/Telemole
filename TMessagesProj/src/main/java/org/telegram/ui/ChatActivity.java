@@ -162,7 +162,6 @@ import org.telegram.messenger.FileLoader;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.FlagSecureReason;
 import org.telegram.messenger.ForkFeatures;
-import org.telegram.messenger.ForkLastChat;
 import org.telegram.messenger.HashtagSearchController;
 import org.telegram.messenger.ImageLoader;
 import org.telegram.messenger.ImageLocation;
@@ -22268,9 +22267,6 @@ public class ChatActivity extends BaseFragment implements
                         }
                     }
                     FileLog.d("ChatActivity didReceiveNewMessages return: opened scheduled messages");
-                    return;
-                }
-                if (chatMode == 0 && !scheduled && ForkLastChat.closeIfIncomingWhileAway(this, arr)) {
                     return;
                 }
                 if (!scheduled) {
